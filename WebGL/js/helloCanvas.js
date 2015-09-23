@@ -17,7 +17,7 @@ function main() {
     ctx.fillRect(50, 100, 250, 150);
 
     ctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
-    ctx.strokeStyle = 'rgb(0, 0, 0)';
+    ctx.beginPath();
     ctx.rect(200, 150, 200, 200);
     ctx.fill();
     ctx.stroke();
