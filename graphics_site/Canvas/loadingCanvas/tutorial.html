@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Loading Canvas</title>
+
+<link href='../../css/bootstrap.min.css' rel='stylesheet'>
+<link href='../../css/main.css' rel='stylesheet'>
+
+<script src='../../js/bootstrap.min.js'></script>
+</head>
+
+<body>
+<div class='container'>
+  <h1>
+    <a href='../../index.html'>Learning Web Graphics with Canvas and WebGL</a>
+  </h1>
+  <a href='../canvas_index.html'>Return to tutorials</a>
+  <main class='col-md-8'>
+
+    <h2>The onload Property</h2>
+
+    <p>
+    <h3><code>&lt;body onload='jscode;'&gt;</code> - </h3>
+    Runs <code>jscode;</code> when the page body, and thus the
+    canvas tag, has finished loading.
+    This method can animate multiple canvases on the same page,
+    even when they have separate animation functions in separate
+    scripts. However, they must all have distinct names, and 
+    cannot share any global variable names in order to work.
+    </p>
+  
+    <p>
+    <h3><code>window.onload = functionName;</code> - </h3>
+    Runs <code>functionName</code> when the DOM has finished loading.
+    If instead you write 
+    <code>window.onload = functionName();</code> then
+    to guarantee that the script works, you must load the script
+    in a tag at the end of your page's body rather than in the head.
+    </p>
+
+    <p>
+    <h3><code>window.onload = function() { ... };</code> - </h3>
+    Enclosing your entire JS script in this turns your
+    whole script into a function call, and executes it
+    when the DOM has finished loading.
+    </p>
+
+
+    <h2>Nameless function execution</h2>
+
+    <p>
+    <h3><code>(function() { ... })();</code> - </h3>
+    Enclosing your entire JS script in this turns your
+    whole script into a function call, making it execute
+    immediately on loading. It also has the added effect of
+    enclosing all your scripts objects within this function,
+    isolating them from the global namespace.
+    To guarantee that the script works, you must load the script
+    in a tag at the end of your page's body rather than in the head.
+    This method can animate multiple canvases on the same page,
+    controlled by separate scripts in separate files, providing
+    optimal modularity for your code. In addition, because the
+    code is enclosed within a function with no name, there are no
+    global variables, and the scripts will not interfere with each other.
+    </p>
+
+  </main>
+</div>
+</body>
+</html>

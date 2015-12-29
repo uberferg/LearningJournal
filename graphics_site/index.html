@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Learning Modern Web Graphics</title>
+
+    <link href='css/bootstrap.min.css' rel='stylesheet'>
+    <link href='css/main.css' rel='stylesheet'>
+    <script src='js/bootstrap.min.js'></script>  
+    <script 
+      src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+  </head>
+
+  <body>
+    <div class='container'>
+      <header>
+        <h1>
+          <a href='index.html'>Learning Web Graphics with Canvas and WebGL</a>
+        </h1>
+      </header>
+
+      <main class='col-md-8'>
+
+        <p>
+        This is a site to keep track of things as I try to teach
+        myself web graphics.
+        </p>
+
+        <h2>
+          <a href='Canvas/canvas_index.html'>
+            Canvas tutorials
+          </a>
+        </h2>
+
+        <h2>
+          <a href='WebGL/helloGL/tutorial.html'>
+            Introducing WebGL
+          </a>
+        </h2>
+        <p>
+        If you look ahead at the source code for this section, you'll
+        notice that it takes quite a formidable number of lines to
+        create a simple triangle. One of the primary reasons for this
+        is that WebGL is entirely shader based. This means that every
+        WebGL application, no matter how simple, requires both a vertex
+        shader and a fragment shader to draw even basic shapes.
+        </p>
+        <p>
+        These shaders run directly on the GPU, unlike other JavaScript 
+        which is handled by the browser, and therefore have to be
+        written in the GL Shading Language (GLSL). This
+        source code then needs to be compiled and linked at run time before
+        it can be used as a shader program by the GPU. Setting up
+        this process happens :
+        <ol>
+          <li>
+        </ol>
+        <a href='WebGL/helloGL.html'>helloGL</a>
+
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>helloCanvas Example Code</title>
+
+<link href='../../css/bootstrap.min.css' rel='stylesheet'>
+<style type='text/css'>
+  #hello-canvas {
+    border: 1px solid black;
+  }
+  .codebox {
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+  }
+</style>
+
+<script src='../../js/bootstrap.min.js'></script>
+<script src='helloCanvas.js'></script>
+</head>
+
+<body onload='main()'>
+<canvas id='hello-canvas' width='500' height='500'>
+    Oops, it looks like your browser doesn't support
+    the <code>&lt;canvas&gt;</code> element.
+</canvas>
+
+<br>
+<a href='tutorial.html'>&lt; Go Back</a>
+
+<div class='row'>
+  <div class='col-md-6'>
+    <h3>helloCanvas.html</h3>
+    <pre class='codebox'>
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset='UTF-8'&gt;
+&lt;meta name='viewport' content='width=device-width, initial-scale=1'&gt;
+&lt;title&gt;helloCanvas Example Code&lt;/title&gt;
+
+&lt;style type='text/css'&gt;
+  #hello-canvas {
+    border: 1px solid black;
+  }
+&lt;/style&gt;
+&lt;script src='js/helloCanvas.js'&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body onload='main()'&gt;
+&lt;canvas id='hello-canvas' width='500' height='500'&gt;
+    Oops, it looks like your browser doesn't support
+    the &lt;code&gt;&lt;canvas&gt;&lt;/code&gt; element.
+&lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+  </div>
+
+  <div class='col-md-6'>
+    <h3>helloCanvas.js</h3>
+    <pre class='codebox'>
+function main() {
+    // First, we retrieve the canvas element.
+    var canvas = document.getElementById('hello-canvas');
+    if (!canvas) {
+      console.log('Failed to retrieve the &lt;canvas&gt; element.');
+      return;
+    }
+
+    // Next, we need a rendering context for the canvas.
+    // In this example, we're using a basic 2d context.
+    var ctx = canvas.getContext('2d');
+
+    // Now, we can use the canvas API to draw something
+    ctx.fillStyle = 'rgb(255, 0, 0)';
+    ctx.fillRect(50, 100, 250, 150);
+
+    ctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
+    ctx.beginPath();
+    ctx.rect(200, 150, 200, 200);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+    ctx.lineWidth = 15;
+    ctx.beginPath();
+    ctx.arc(250, 200, 180, 0, 2*Math.PI);
+    ctx.stroke();
+
+    ctx.font = '64px sans';
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#000000';
+    ctx.fillStyle = '#ee7f2d';
+    ctx.strokeText("Hello, canvas!", 30, 470);
+    ctx.fillText("Hello, canvas!", 30, 470);
+
+}
+    </pre>
+  </div>
+</div>
+</body>
+</html>
+

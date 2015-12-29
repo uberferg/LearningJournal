@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Hello WebGL!</title>
+
+<link href='../css/bootstrap.min.css' rel='stylesheet'>
+<style>
+  pre {
+    overflow-y: scroll;
+    max-height: 300px;
+  }
+  canvas {
+    border: 1px solid black;
+  }
+</style>
+
+<script src='../js/bootstrap.min.js'></script>
+</head>
+
+<body onload='main()'>
+<div class='container'>
+  <h1>
+    <a href='../index.html'>Learning Web Graphics with Canvas and WebGL</a>
+  </h1>
+  <div class='col-md-8'>
+
+    <h2>First steps with WebGL</h2>
+  
+    <p>
+    The output and example code for this post are viewable 
+    <a href=''>here</a>.
+    </p>
+
+    <h3>What is WebGL?</h3>
+
+    <p>
+    </p>
+
+
+    <h3>Getting started: setting up the <code>&lt;canvas&gt;</code></h3>
+
+    <p>
+    Like when using the canvas API, the first thing 
+    needed in order to use WebGL is an
+    HTML5 <code>&lt;canvas&gt;</code> element. The code below 
+    creates one and sets <code>onload='main()'</code> 
+    in the body, which will be used to initialize
+    our WebGL program.
+    </p>
+
+    <pre>
+&lt;body onload='main()'&gt;
+&lt;canvas id='gl-canvas' width='500' height='500'&gt;
+  Oops, your browser does not support the canvas element.
+&lt;/canvas&gt;
+&lt;/body&gt;
+    </pre>
+
+    <p>
+    The canvas must then be accessed and set up from
+    wihin <code>main()</code>. First, we get the canvas using
+    the <code>document.getElementById()</code> method. We then
+    pass the reference to a function that will initialize the
+    webGL context. In this function, the canvas'
+    <code>getContext()</code> method is used to retrieve a WebGL
+    context, using the experimental WebGL context as a
+    fallback option.
+    </p>
+
+    <p>
+    If a context is successfully obtained, the color buffer
+    is cleared to an RGBA color of our choosing, using the
+    <code>clearColor()</code> and <code>clear()</code> methods.
+    </p>
+
+    <pre>
+var gl;
+
+function main() {
+    var canvas = document.getElementById('gl-canvas');
+
+    gl = initGLContext(canvas); // Initialize the GL canvas context
+
+    // Only continue if WebGL is available
+    if (gl) {
+        gl.clearColor(1.0, 1.0, 1.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+    }
+}
+
+function initGLContext(canvas) {
+    gl = null;
+
+    try {
+        gl = canvas.getContext('webgl') || 
+             canvas.getContext('experimental-webgl');
+    } catch(e) {}
+
+    if (!gl) {
+        alert("Unable to initialize WebGL. Your browser may not support it");
+    }
+    return gl;
+}
+    </pre>
+
+
+
+    <a href='helloGL.html'>helloGL</a>
+    <a href='helloGL_improved.html'>improved version</a>
+    
+  </div>
+</div>
+</body>
+</html>

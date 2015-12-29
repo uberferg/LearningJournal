@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+<title>Hello Canvas!</title>
+
+<link href='../../css/bootstrap.min.css' rel='stylesheet'>
+<link href='../../css/main.css' rel='stylesheet'>
+
+<script src='../../js/bootstrap.min.js'></script>
+<script src='helloCanvas.js'></script>
+</head>
+
+<body onload='main()'>
+<div class='container'>
+  <h1>
+    <a href='../../index.html'>Learning Web Graphics with Canvas and WebGL</a>
+  </h1>
+  <a href='../canvas_index.html'>Return to tutorials</a>
+  <main class='col-md-8'>
+
+    <h2>First steps with the canvas API</h2>
+  
+    <p>
+    The output and example code for this post are viewable 
+    <a href='helloCanvas_code.html'>here</a>.
+    </p>
+    
+    <p>
+    The <code>&lt;canvas&gt;</code> element provides WebGL
+    with a drawing board on which images and animations can
+    be rendered, so I felt it would be suitable to first
+    familiarize myself with the <code>&lt;canvas&gt;</code>
+    tag and the 
+    <a href='https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API'>
+      Canvas API</a>.
+    Canvas by itself is a powerful 2D graphics tool,
+    capable of doing many things that WebGL can, and 
+    requiring much less code than a WebGL script which
+    would produce similar output.
+    </p>
+
+    <h3>Creating the canvas</h3>
+
+    <pre>
+&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style type='text/css'&gt;
+  #hello-canvas {
+    border: 1px solid black;
+  }
+&lt;/style&gt;
+&lt;script src='js/helloCanvas.js'&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body onload='main()'&gt;
+  &lt;canvas id='hello-canvas' width='500' height='500'&gt;
+      Oops, it looks like your browser doesn't support
+      the &lt;code&gt;&amp;lt;canvas&amp;gt;&lt;/code&gt; element.
+  &lt;/canvas&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    </pre>
+
+    <p>
+    Creating a canvas element is simple. Like any other HTML 
+    tag, we simply place it in the <code>&lt;body&gt;</code>
+    of our webpage. The text (or other arbitrary
+    content) between the <code>&lt;canvas&gt;</code> tags
+    is 'fallback content', which will only be displayed
+    if the browser is unable to render the canvas element.
+    There are two important things to remember
+    in this step. The first is that we must assign our 
+    <code>&lt;canvas&gt;</code> tag a unique <code>id</code>
+    so that we can access it from within our JavaScript. 
+    The second is to include an <code>onload</code> attribute,
+    more info on that shortly. 
+    Additionally, we can set the DOM <code>width</code>
+    and <code>height</code> attributes. These attributes are both
+    optional, with a default setting of <b>300 pixels wide</b>
+    by <b>150 pixels high</b>. 
+    </p>
+
+    <p>
+    The <code>&lt;canvas&gt;</code>
+    can also be arbitrarily sized and styled by CSS.
+    The background of an unstyled canvas element will be 
+    transparent, making it essentially invisible, so it can be
+    useful to use CSS to add a border or background color. In
+    this example, I've added a <code>1px solid black</code>
+    border to highlight the edge of the canvas element.
+    Also, note that if a resizing of the canvas using the CSS 
+    width and height properties does not respect the initial 
+    aspect ratio of the canvas, the image will appear
+    distorted, so it is usually best to set width and height
+    explicitly in the <code>&lt;canvas&gt;</code> attributes.
+    </p>
+
+    <h3>Accessing the canvas</h3>
+
+    <pre>
+var canvas = document.getElementById('hello-canvas');
+if (!canvas) {
+  console.log('Failed to retrieve the &lt;canvas&gt; element.');
+  return;
+}
+var ctx = canvas.getContext('2d');
+    </pre>
+    
+    <p>
+    All actual drawing and interaction with the canvas is
+    done through JavaScript. The first step in this is always
+    to retrieve the canvas element from the DOM
+    with the <code>document.getElementById('canvas-id')</code>
+    method. This is why it is essential to assign the canvas a
+    unique <code>id</code>. It is proper
+    programming practice to check that this retrieval is
+    successful with an <code>if</code> or <code>try catch</code>.
+    </p>
+    
+    <p>
+    Once the canvas element has been saved, a script must
+    access the canvas' rendering context in order to draw
+    on it. The <code>&lt;canvas&gt;</code> element has a
+    method called <code>getContext()</code>
+    which returns one of the possible rendering contexts
+    available for use with <code>&lt;canvas&gt;</code>.
+    In this example, we retrieve a 
+    <code>CanvasRenderingContext2D</code> by passing in
+    the string <code>'2d'</code> as the argument. WebGL
+    also draws on the <code>&lt;canvas&gt;</code> element,
+    but uses the <code>WebGLRenderingContext</code>. The
+    list of valid arguments and rendering contexts can be seen 
+    <a href='https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/getContext#Syntax'>
+      here</a>.
+    </p>
+
+    <h3>Drawing on the canvas</h3>
+
+    <p>
+    Drawing on the canvas is done using the
+    <code>CanvasRenderingContext2D</code> properties
+    and methods. The coordinate system of the canvas
+    sets the top left corner of the canvas to (0, 0), with
+    the <i>x</i>-axis increasing to the right and the
+    <i>y</i>-axis increasing down. The <i>x</i>-coordinate
+    of the right edge of the canvas is given by the
+    canvas' <code>width</code> attribute (<strong>not</strong>
+    the canvas' CSS width), and similarly
+    the <i>y</i>-coordinate of the bottom edge is given
+    by <code>height</code> attribute.
+    </p>
+
+    <pre>
+ctx.fillStyle = 'rgb(255, 0, 0)';
+ctx.fillRect(50, 100, 250, 150);
+    </pre>
+
+    <p>
+    These two lines of code draw a red-filled
+    rectangle of size 250&times;150 (width &times; height),
+    with its top left corner at
+    (50, 100). The first line sets the <code>fillStyle</code>
+    property of the <code>CanvasRenderingContext2D</code>
+    to a string representing a CSS color, in this case red. Calling 
+    <code>
+      fillRect(<i>x</i>, <i>y</i>, <i>width</i>, <i>height</i>)
+    </code> 
+    then draws a rectangle with the set <code>fillStyle</code>. 
+    The default fill color is black. Similarly, the 
+    <code>strokeRect()</code>
+    method draws the outline of a rectangle with the set
+    <code>strokeStyle</code>.
+    </p>
+
+    <pre>
+ctx.fillStyle = 'rgba(0, 255, 0, 0.5)';
+ctx.beginPath();
+ctx.rect(200, 150, 200, 200);
+ctx.fill();
+ctx.stroke();
+
+ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)';
+ctx.lineWidth = 15;
+ctx.beginPath();
+ctx.arc(250, 200, 180, 0, 2*Math.PI);
+ctx.stroke();
+    </pre>
+
+    <p>
+    We can also draw a things by first creating a path,
+    then using the <code>fill()</code> and <code>stroke()</code>
+    methods to fill and stroke the created path. To draw an
+    arbitrary path, we first call <code>beginPath()</code>, then
+    use methods like <code>rect()</code>, or <code>lineTo()</code>
+    to create the path. In this example, we then call both
+    <code>fill()</code> and <code>stroke()</code> to create
+    a transparent green rectangle with a solid black border.
+    </p>
+
+    <p>
+    Canvas also contains a method for drawing arcs and circles:
+    <code>
+      arc(<i>x</i>, <i>y</i>, <i>radius</i>, <i>startAngle</i>, 
+      <i>stopAngle</i>)</code>.
+    This method draws a path representing an arc of the given
+    angle (full circle is an arc of 2&pi; radians), but unlike
+    <code>rect()</code> there is no shortcut method
+    to draw a filled or stroked arc in a single command.
+    Before drawing our blue, transparent circle, we also
+    set one additional property, <code>lineWidth</code> (default
+    value 1), to set the thickness of <code>stroke()</code>.
+    </p>
+
+    <pre>
+ctx.font = '64px sans';
+ctx.lineWidth = 2;
+ctx.strokeStyle = '#000000';
+ctx.fillStyle = '#ee7f2d';
+ctx.strokeText("Hello, canvas!", 30, 470);
+ctx.fillText("Hello, canvas!", 30, 470);
+    </pre>
+
+    <p>
+    Lastly, we'll write some basic text using the canvas methods.
+    The font styling is set with the <code>font</code> property,
+    which uses the same syntax as the CSS <code>font</code> 
+    property. We then use the <code>strokeText()</code> and
+    <code>fillText()</code> methods to create orange text with
+    a 2 pixel wide black outline. Unlike the other canvas
+    drawing primitives, there is no <code>CanvasRenderingContext2d</code>
+    method that creates a path representing the text on which
+    <code>fill()</code> or <code>stroke()</code> can be called.
+    <p>
+
+    <pre>
+function main() {
+    ...
+    ...
+    ...
+}
+    </pre>
+
+    <p>
+    Lastly, all this JavaScript must be put into a function,
+    which I named <code>main()</code>, and the webpage must have
+    a way of calling this code and telling it to execute. This is
+    where the <code>onload</code> property comes in. By setting
+    <code>onload='main()'</code> in the body of our webpage, we
+    ensure that the <code>main()</code> function will execute when
+    the page has loaded and reached a stable point.
+    </p>
+
+    <p>
+    Putting all that together, we get
+    this as our output:
+    <canvas id='hello-canvas' width=500 height=500>
+      Oops, it looks like your browser does not support the canvas element.
+    </canvas>
+    <br>
+    <a href='helloCanvas.html'>Click here to view in new page</a>
+    </p>
+    
+    <p>
+    Now go explore the
+    <code>CanvasRenderingContext2D</code> properties
+    and methods, which can be found 
+    <a href='https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D'>
+      here</a>, and see what you can make by tinkering!
+    </p>
+  </main>
+</div>
+</body>
+</html>

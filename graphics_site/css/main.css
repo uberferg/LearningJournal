@@ -1,0 +1,10 @@
+pre {
+  overflow-y: scroll;
+  max-height: 300px;
+}
+
+canvas {
+  border: 1px solid black;
+}
+
+/*# sourceMappingURL=main.css.map */

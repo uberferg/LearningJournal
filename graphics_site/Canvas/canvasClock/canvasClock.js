@@ -15,7 +15,7 @@ function main() {
 
     // preload the clock face background image
     clockFace = new Image();
-    clockFace.src = 'images/wood_texture.jpg';
+    clockFace.src = '../images/wood_texture.jpg';
 
     // last, we set the clock radius and draw the clock
     var clockRad = radius*0.9;

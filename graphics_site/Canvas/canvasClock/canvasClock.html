@@ -12,13 +12,13 @@
       background-color: #333333;
     }
   </style>
+
+  <script src='canvasClock.js'></script>
 </head>
 
 <body onload='main()'>
-<canvas id='clock-canvas' width=500 height=500>
+<canvas id='clock-canvas' onload='main()' width=500 height=500>
   Oops, it looks like your browser does not support the canvas element.
 </canvas>
-
-<script src='js/canvasClock.js'></script>
 </body>
 </html>
